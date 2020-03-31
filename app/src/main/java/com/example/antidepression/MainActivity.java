@@ -48,9 +48,9 @@ public class MainActivity extends ListActivity {
 //                    case "Music relaxion":
 //                        intent = new Intent(getApplicationContext(), AudioActivity.class);
 //                        break;
-//                    case "Pleasure therapy":
-//                        intent = new Intent(getApplicationContext(), PleasureActivity.class);
-//                        break;
+                    case "Pleasure therapy":
+                        intent = new Intent(getApplicationContext(), PleasureActivity.class);
+                        break;
                     default:
                         intent = new Intent(getApplicationContext(), MainActivity.class);
                         break;

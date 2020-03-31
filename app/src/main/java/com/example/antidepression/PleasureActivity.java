@@ -16,6 +16,8 @@ import com.example.antidepression.db.DatabasePleasureAdapter;
 import com.example.antidepression.db.Pleasure;
 
 import java.util.List;
+import java.util.Random;
+import java.util.stream.Collectors;
 
 public class PleasureActivity extends AppCompatActivity {
     private ListView pleasureList;
@@ -49,11 +51,6 @@ public class PleasureActivity extends AppCompatActivity {
                         selectedView.setBackgroundColor(Color.TRANSPARENT);
                     }
                     view.setBackgroundColor(Color.parseColor("#d0d1d1"));
-
-//                    Intent intent = new Intent(getApplicationContext(), PleasureActivity.class);
-//                    intent.putExtra("id", pleasure.getId());
-//                    intent.putExtra("click", 25);
-//                    startActivity(intent);
                 } else {
                     hideButtons();
                     if (selectedView != null) {
@@ -83,6 +80,97 @@ public class PleasureActivity extends AppCompatActivity {
     public void onResume() {
         super.onResume();
         refreshList();
+    }
+    // по нажатию на кнопку запускаем PleasureActivity для добавления данных
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    public void delete(View view){
+        DatabasePleasureAdapter adapter = new DatabasePleasureAdapter(this);
+        adapter.open();
+        adapter.delete(selectedPleasure.getId());
+        currentItems.remove(selectedPleasure);
+
+        List<Pleasure> pleasures = adapter.getAllPleasure();
+        List<Long> pleasuresIds = pleasures.stream().map(pl -> pl.getId()).filter(pl -> !currentItems.stream().map(s -> s.getId()).anyMatch(t -> t == pl)).collect(Collectors.toList());
+
+
+        adapter.close();
+
+        hideButtons();
+        if (selectedView != null) {
+            selectedView.setBackgroundColor(Color.TRANSPARENT);
+        }
+
+        if (currentItems.size() == 0) {
+            adapter.open();
+            adapter.recreate();
+            pleasures = adapter.getAllPleasure();
+            pleasures.subList(0, Integer.min(4, pleasures.size())).forEach(p -> currentItems.add(p));
+            adapter.close();
+            arrayAdapter.notifyDataSetChanged();
+
+            return;
+        }
+
+        arrayAdapter.notifyDataSetChanged();
+
+
+        selectedPleasure = null;
+        selectedView = null;
+
+        if (pleasuresIds.size() == 0) {
+            return;
+        }
+
+        adapter.open();
+
+        Random random = new Random();
+        Integer nextId = random.nextInt(pleasuresIds.size());
+        Pleasure nextPleasure = adapter.getPleasure(pleasuresIds.get(nextId));
+
+        currentItems.add(nextPleasure);
+        arrayAdapter.notifyDataSetChanged();
+        adapter.close();
+
+
+
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    public void remind(View view){
+        DatabasePleasureAdapter adapter = new DatabasePleasureAdapter(this);
+        adapter.open();
+        currentItems.remove(selectedPleasure);
+
+        List<Pleasure> pleasures = adapter.getAllPleasure();
+        List<Long> pleasuresIds = pleasures.stream().map(pl -> pl.getId()).filter(pl -> !currentItems.stream().map(s -> s.getId()).anyMatch(t -> t == pl)).collect(Collectors.toList());
+
+
+        adapter.close();
+
+        hideButtons();
+        if (selectedView != null) {
+            selectedView.setBackgroundColor(Color.TRANSPARENT);
+        }
+
+        arrayAdapter.notifyDataSetChanged();
+
+
+        selectedPleasure = null;
+        selectedView = null;
+
+        if (pleasuresIds.size() == 0) {
+            return;
+        }
+        adapter.open();
+
+
+        Random random = new Random();
+        Integer nextId = random.nextInt(pleasuresIds.size());
+        Pleasure nextPleasure = adapter.getPleasure(pleasuresIds.get(nextId));
+
+        currentItems.add(nextPleasure);
+        arrayAdapter.notifyDataSetChanged();
+        adapter.close();
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
