@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DatabaseAdapter {
+
     private DatabaseHelper dbHelper;
     private SQLiteDatabase database;
 
@@ -28,7 +29,7 @@ public class DatabaseAdapter {
 
     private Cursor getAllEntries(){
         String[] columns = new String[] {DatabaseHelper.COLUMN_ID, DatabaseHelper.COLUMN_TEXT, DatabaseHelper.COLUMN_STATE};
-        return  database.query(DatabaseHelper.TABLE, columns, null, null, null, null, null);
+        return  database.query(DatabaseHelper.NOTES_TABLE, columns, null, null, null, null, null);
     }
 
     public List<Note> getNotes(){
@@ -48,12 +49,12 @@ public class DatabaseAdapter {
     }
 
     public long getCount(){
-        return DatabaseUtils.queryNumEntries(database, DatabaseHelper.TABLE);
+        return DatabaseUtils.queryNumEntries(database, DatabaseHelper.NOTES_TABLE);
     }
 
     public Note getNote(long id){
         Note note = null;
-        String query = String.format("SELECT * FROM %s WHERE %s=?",DatabaseHelper.TABLE, DatabaseHelper.COLUMN_ID);
+        String query = String.format("SELECT * FROM %s WHERE %s=?",DatabaseHelper.NOTES_TABLE, DatabaseHelper.COLUMN_ID);
         Cursor cursor = database.rawQuery(query, new String[]{ String.valueOf(id)});
         if(cursor.moveToFirst()){
             String text = cursor.getString(cursor.getColumnIndex(DatabaseHelper.COLUMN_TEXT));
@@ -70,14 +71,14 @@ public class DatabaseAdapter {
         cv.put(DatabaseHelper.COLUMN_TEXT, note.getText());
         cv.put(DatabaseHelper.COLUMN_STATE, note.getState());
 
-        return  database.insert(DatabaseHelper.TABLE, null, cv);
+        return  database.insert(DatabaseHelper.NOTES_TABLE, null, cv);
     }
 
     public long delete(long noteId){
 
         String whereClause = "_id = ?";
         String[] whereArgs = new String[]{String.valueOf(noteId)};
-        return database.delete(DatabaseHelper.TABLE, whereClause, whereArgs);
+        return database.delete(DatabaseHelper.NOTES_TABLE, whereClause, whereArgs);
     }
 
     public long update(Note note){
@@ -86,6 +87,6 @@ public class DatabaseAdapter {
         ContentValues cv = new ContentValues();
         cv.put(DatabaseHelper.COLUMN_TEXT, note.getText());
         cv.put(DatabaseHelper.COLUMN_STATE, note.getState());
-        return database.update(DatabaseHelper.TABLE, cv, whereClause, null);
+        return database.update(DatabaseHelper.NOTES_TABLE, cv, whereClause, null);
     }
 }
