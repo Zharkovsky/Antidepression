@@ -24,4 +24,17 @@ public class AboutDepressionActivity extends AppCompatActivity {
         videoview.setMediaController(mediaController);
         mediaController.setMediaPlayer(videoview);
     }
+
+    public void play(View view) {
+        videoview.start();
+    }
+
+    public void pause(View view) {
+        videoview.pause();
+    }
+
+    public void stop(View view) {
+        videoview.stopPlayback();
+        videoview.resume();
+    }
 }

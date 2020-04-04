@@ -10,6 +10,21 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:scrollbars="vertical">
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Play"
+            android:onClick="play"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Pause"
+            android:onClick="pause"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Stop"
+            android:onClick="stop"/>
     </LinearLayout>
     <VideoView
         android:id="@+id/videoview"
