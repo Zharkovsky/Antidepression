@@ -1,6 +1,5 @@
 package com.example.antidepression;
 
-import android.app.Dialog;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
@@ -30,6 +29,50 @@ public class TestActivity extends AppCompatActivity {
             LinearLayout questionLayout = CreateQuestion(question);
             basicLayout.addView(questionLayout);
         }
+
+        Button button = createCompleteButton();
+        basicLayout.addView(button);
+    }
+
+    private Button createCompleteButton() {
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT);
+        params.gravity = Gravity.CENTER;
+
+        Button button = new Button(this);
+
+        button.setLayoutParams(params);
+        button.setGravity(Gravity.CENTER);
+        button.setText("Готово");
+        button.setOnClickListener(new Button.OnClickListener() {
+            public void onClick(View v) {
+                String title;
+                String text;
+
+                if (finalSum < 13) {
+                    title = "Ответьте на все вопросы";
+                    text = "Нажмите ОК чтобы продолжить";
+                } else {
+                    title = "Результат теста";
+                    if (finalSum < 26) {
+                        text = "Вы находитесь в нормальном состоянии";
+                    } else if (finalSum < 32) {
+                        text = "У Вас легкая депрессия";
+                    }  else if (finalSum < 41) {
+                        text = "У Вас умеренная депрессия";
+                    } else if (finalSum > 41) {
+                        text = "У Вас тяжелая депрессия. Обратитесь к специалисту.";
+                    }
+                    else {
+                        text = "";
+                    }
+                }
+                TestResultDialogFragment dialog = new TestResultDialogFragment(title, text);
+                dialog.show(getSupportFragmentManager(), "custom");
+            }
+        });
+
+        return button;
     }
 
     private LinearLayout CreateQuestion(Question question) {
@@ -214,6 +257,4 @@ public class TestActivity extends AppCompatActivity {
             this.Answer4 = answer4;
         }
     }
-
-
 }
