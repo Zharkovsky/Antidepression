@@ -42,12 +42,12 @@ public class MainActivity extends ListActivity {
 //                    case "Advices":
 //                        intent = new Intent(getApplicationContext(), AdviceScreenSlidePagerActivity.class);
 //                        break;
-//                    case "Thought catalog":
-//                        intent = new Intent(getApplicationContext(), NotesActivity.class);
-//                        break;
-//                    case "Music relaxion":
-//                        intent = new Intent(getApplicationContext(), AudioActivity.class);
-//                        break;
+                    case "Thought catalog":
+                        intent = new Intent(getApplicationContext(), NotesActivity.class);
+                        break;
+                    case "Music relaxation":
+                        intent = new Intent(getApplicationContext(), AudioActivity.class);
+                        break;
                     case "Pleasure therapy":
                         intent = new Intent(getApplicationContext(), PleasureActivity.class);
                         break;
