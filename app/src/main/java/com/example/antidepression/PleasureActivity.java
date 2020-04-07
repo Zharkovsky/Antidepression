@@ -25,6 +25,7 @@ public class PleasureActivity extends AppCompatActivity {
     public static final String APP_PREFERENCES_THEME = "theme";
     public static final String IS_DARK_THEME = "isDarkTheme";
     private SharedPreferences settings;
+
     private ListView pleasureList;
     private Pleasure selectedPleasure;
     private View selectedView;

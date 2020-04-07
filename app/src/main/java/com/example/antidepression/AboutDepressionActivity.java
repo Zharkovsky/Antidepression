@@ -14,6 +14,7 @@ public class AboutDepressionActivity extends AppCompatActivity {
     public static final String APP_PREFERENCES_THEME = "theme";
     public static final String IS_DARK_THEME = "isDarkTheme";
     private SharedPreferences settings;
+
     VideoView videoview;
 
     @Override

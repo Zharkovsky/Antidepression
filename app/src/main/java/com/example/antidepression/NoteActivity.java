@@ -16,7 +16,6 @@ import com.example.antidepression.db.Note;
 import com.example.antidepression.helpers.InputFilterMinMax;
 
 public class NoteActivity extends AppCompatActivity {
-
     public static final String APP_PREFERENCES_THEME = "theme";
     public static final String IS_DARK_THEME = "isDarkTheme";
     private SharedPreferences settings;

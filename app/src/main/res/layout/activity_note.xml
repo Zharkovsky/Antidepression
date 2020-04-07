@@ -15,13 +15,13 @@
             android:id="@+id/text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Введите заметку"/>
+            android:hint="Enter note"/>
         <EditText
             android:id="@+id/state"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="number"
-            android:hint="Введите свое состояние (1-5)"/>
+            android:hint="Enter your state (1-5)"/>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -32,17 +32,16 @@
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:text="Сохранить"
+                android:text="Save"
                 android:onClick="save"/>
             <Button
                 android:id="@+id/deleteButton"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:text="Удалить"
+                android:text="Delete"
                 android:onClick="delete"/>
         </LinearLayout>
     </LinearLayout>
-
 </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent">
 
@@ -14,19 +15,29 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/textViewTest"
+                android:id="@+id/textView"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginTop="25dp"
+                android:layout_weight="1"
+                android:gravity="center_vertical|right"
+                android:text="Beck Depression Questionnaire"
+                android:textAlignment="center"
+                android:textSize="32dp" />
+
+            <ImageView
+                android:id="@+id/imageView2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Опросник депрессии Бека"
-                android:textSize="24dp"
-                android:textAlignment="center"
-                android:layout_marginTop="20dp"/>
+                android:layout_marginTop="-150px"
+                android:layout_marginBottom="-200px"
+                app:srcCompat="@drawable/test" />
 
             <TextView
                 android:id="@+id/textViewTestDescription"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="В этом опроснике содержатся группы утверждений. Внимательно прочитайте каждую группу утверждений. Затем, определите в каждой группе одно утверждение, которое лучше всего соответствует тому, как Вы себя чувствовали НА ЭТОЙ НЕДЕЛЕ И СЕГОДНЯ. Поставьте галочку около выбранного утверждения."
+                android:text="This questionnaire contains claim groups. Read each statement group carefully. Then, identify in each group one statement that best matches how you felt THIS WEEK AND TODAY. Check the box next to the selected statement."
                 android:textSize="16dp"
                 android:layout_margin="30px"
                 android:layout_marginTop="0px"/>
