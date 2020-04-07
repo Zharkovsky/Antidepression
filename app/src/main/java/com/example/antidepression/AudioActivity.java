@@ -1,6 +1,7 @@
 package com.example.antidepression;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
@@ -16,6 +17,10 @@ import java.util.Random;
 
 class AudioActivity extends AppCompatActivity {
 
+    public static final String APP_PREFERENCES_THEME = "theme";
+    public static final String IS_DARK_THEME = "isDarkTheme";
+    private SharedPreferences settings;
+
     Integer[] source = new Integer[] {R.raw.sound1, R.raw.sound2, R.raw.sound3};
     MediaPlayer mPlayer;
     Button startButton, pauseButton, stopButton;
@@ -28,6 +33,9 @@ class AudioActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        loadSettings();
+        loadTheme();
 
         setContentView(R.layout.activity_audio);
 
@@ -141,5 +149,19 @@ class AudioActivity extends AppCompatActivity {
         if (mPlayer.isPlaying()) {
             stopPlay();
         }
+    }
+
+    private void loadSettings() {
+        settings = this.getSharedPreferences(APP_PREFERENCES_THEME, Context.MODE_PRIVATE);
+    }
+
+    private void loadTheme() {
+        int theme = getThemeFromPreferences();
+        setTheme(theme);
+    }
+
+    private int getThemeFromPreferences() {
+        Boolean darkTheme = settings.getBoolean(IS_DARK_THEME, false);
+        return darkTheme ? R.style.DarkTheme : R.style.LightTheme;
     }
 }

@@ -1,5 +1,7 @@
 package com.example.antidepression;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -10,6 +12,10 @@ import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 public class AdviceScreenSlidePagerActivity extends FragmentActivity {
+    public static final String APP_PREFERENCES_THEME = "theme";
+    public static final String IS_DARK_THEME = "isDarkTheme";
+    private SharedPreferences settings;
+
     String[] advices = new String[] {
             "Заведите личный дневник (описывайте в нем события, сопутствующие мысли и чувства",
             "Ежедневно составляйте план на день с конкретными и реалистичными целями",
@@ -40,6 +46,9 @@ public class AdviceScreenSlidePagerActivity extends FragmentActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        loadSettings();
+        loadTheme();
 
         setContentView(R.layout.advice_activity_screen_slide);
 
@@ -79,5 +88,19 @@ public class AdviceScreenSlidePagerActivity extends FragmentActivity {
         public int getCount() {
             return NUM_PAGES;
         }
+    }
+
+    private void loadSettings() {
+        settings = this.getSharedPreferences(APP_PREFERENCES_THEME, Context.MODE_PRIVATE);
+    }
+
+    private void loadTheme() {
+        int theme = getThemeFromPreferences();
+        setTheme(theme);
+    }
+
+    private int getThemeFromPreferences() {
+        Boolean darkTheme = settings.getBoolean(IS_DARK_THEME, false);
+        return darkTheme ? R.style.DarkTheme : R.style.LightTheme;
     }
 }

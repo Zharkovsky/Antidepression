@@ -1,5 +1,7 @@
 package com.example.antidepression;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
@@ -12,6 +14,9 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class TestActivity extends AppCompatActivity {
+    public static final String APP_PREFERENCES_THEME = "theme";
+    public static final String IS_DARK_THEME = "isDarkTheme";
+    private SharedPreferences settings;
     public int finalSum = 0;
 
     private Question[] _questions;
@@ -19,6 +24,9 @@ public class TestActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        loadSettings();
+        loadTheme();
 
         loadTest();
 
@@ -256,5 +264,19 @@ public class TestActivity extends AppCompatActivity {
             this.Answer3 = answer3;
             this.Answer4 = answer4;
         }
+    }
+
+    private void loadSettings() {
+        settings = this.getSharedPreferences(APP_PREFERENCES_THEME, Context.MODE_PRIVATE);
+    }
+
+    private void loadTheme() {
+        int theme = getThemeFromPreferences();
+        setTheme(theme);
+    }
+
+    private int getThemeFromPreferences() {
+        Boolean darkTheme = settings.getBoolean(IS_DARK_THEME, false);
+        return darkTheme ? R.style.DarkTheme : R.style.LightTheme;
     }
 }
