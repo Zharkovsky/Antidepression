@@ -39,9 +39,9 @@ public class MainActivity extends ListActivity {
                     case "Test":
                         intent = new Intent(getApplicationContext(), TestActivity.class);
                         break;
-//                    case "Advices":
-//                        intent = new Intent(getApplicationContext(), AdviceScreenSlidePagerActivity.class);
-//                        break;
+                   case "Advices":
+                       intent = new Intent(getApplicationContext(), AdviceScreenSlidePagerActivity.class);
+                       break;
                     case "Thought catalog":
                         intent = new Intent(getApplicationContext(), NotesActivity.class);
                         break;
