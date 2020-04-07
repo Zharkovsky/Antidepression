@@ -10,6 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".PleasureActivity"></activity>
+        <activity android:name=".AdviceScreenSlidePagerActivity" />
         <activity android:name=".TestActivity" />
         <activity android:name=".AboutDepressionActivity" />
         <activity android:name=".MainActivity">
