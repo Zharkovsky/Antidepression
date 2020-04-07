@@ -6,6 +6,11 @@
     android:layout_height="wrap_content"
     android:orientation="vertical" >
 
+    <Switch
+        android:id="@+id/switchTheme"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" android:onClick="switchTheme" />
+
     <TextView
         android:id="@+id/textView"
         android:layout_width="match_parent"

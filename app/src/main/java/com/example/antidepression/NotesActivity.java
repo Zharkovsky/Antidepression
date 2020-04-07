@@ -1,6 +1,8 @@
 package com.example.antidepression;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -15,12 +17,18 @@ import com.example.antidepression.db.Note;
 import java.util.List;
 
 public class NotesActivity extends AppCompatActivity {
+    public static final String APP_PREFERENCES_THEME = "theme";
+    public static final String IS_DARK_THEME = "isDarkTheme";
+    private SharedPreferences settings;
     private ListView noteList;
     ArrayAdapter<Note> arrayAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        loadSettings();
+        loadTheme();
 
         setContentView(R.layout.activity_notes);
 
@@ -57,5 +65,19 @@ public class NotesActivity extends AppCompatActivity {
     public void add(View view){
         Intent intent = new Intent(this, NoteActivity.class);
         startActivity(intent);
+    }
+
+    private void loadSettings() {
+        settings = this.getSharedPreferences(APP_PREFERENCES_THEME, Context.MODE_PRIVATE);
+    }
+
+    private void loadTheme() {
+        int theme = getThemeFromPreferences();
+        setTheme(theme);
+    }
+
+    private int getThemeFromPreferences() {
+        Boolean darkTheme = settings.getBoolean(IS_DARK_THEME, false);
+        return darkTheme ? R.style.DarkTheme : R.style.LightTheme;
     }
 }
