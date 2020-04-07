@@ -15,7 +15,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import java.util.ArrayList;
 import java.util.Random;
 
-class AudioActivity extends AppCompatActivity {
+public class AudioActivity extends AppCompatActivity {
 
     public static final String APP_PREFERENCES_THEME = "theme";
     public static final String IS_DARK_THEME = "isDarkTheme";

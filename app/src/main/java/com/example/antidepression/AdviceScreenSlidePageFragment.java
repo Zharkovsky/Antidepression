@@ -32,16 +32,16 @@ public class AdviceScreenSlidePageFragment extends Fragment {
         ImageView backgroundImage = (ImageView) (rootView.findViewById(R.id.backgound_image));
         FrameLayout parent = (FrameLayout) (rootView.findViewById(R.id.parent));
         String packageName = this.getContext().getApplicationInfo().packageName;
-        int imageId = getResourceId(this.getContext(), "bg" + position, "drawable", packageName);
+        int imageId = getResourseId(this.getContext(), "bg" + position, "drawable", packageName);
         //parent.setBackgroundResource(imageId);
         Uri uri = Uri.parse("android.resource://"+ packageName+"/"+imageId);
         backgroundImage.setImageURI(uri);
         return rootView;
     }
 
-    public static int getResourceId(Context context, String pVariableName, String pResourceName, String pPackageName) throws RuntimeException {
+    public static int getResourseId(Context context, String pVariableName, String pResourcename, String pPackageName) throws RuntimeException {
         try {
-            return context.getResources().getIdentifier(pVariableName, pResourceName, pPackageName);
+            return context.getResources().getIdentifier(pVariableName, pResourcename, pPackageName);
         } catch (Exception e) {
             throw new RuntimeException("Error getting Resource ID.", e);
         }

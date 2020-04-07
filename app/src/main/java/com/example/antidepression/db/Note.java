@@ -39,6 +39,6 @@ public class Note {
 
     @Override
     public String toString() {
-        return this.text + ". Текущее состояние: " + this.state;
+        return this.text + ". Current state: " + this.state;
     }
 }

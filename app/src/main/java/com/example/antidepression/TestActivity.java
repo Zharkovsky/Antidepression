@@ -1,5 +1,6 @@
 package com.example.antidepression;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -17,9 +18,12 @@ public class TestActivity extends AppCompatActivity {
     public static final String APP_PREFERENCES_THEME = "theme";
     public static final String IS_DARK_THEME = "isDarkTheme";
     private SharedPreferences settings;
+
     public int finalSum = 0;
 
     private Question[] _questions;
+
+    Dialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,7 +31,6 @@ public class TestActivity extends AppCompatActivity {
 
         loadSettings();
         loadTheme();
-
         loadTest();
 
         setContentView(R.layout.activity_test);
@@ -40,6 +43,7 @@ public class TestActivity extends AppCompatActivity {
 
         Button button = createCompleteButton();
         basicLayout.addView(button);
+
     }
 
     private Button createCompleteButton() {
@@ -51,25 +55,25 @@ public class TestActivity extends AppCompatActivity {
 
         button.setLayoutParams(params);
         button.setGravity(Gravity.CENTER);
-        button.setText("Готово");
+        button.setText("Done");
         button.setOnClickListener(new Button.OnClickListener() {
             public void onClick(View v) {
                 String title;
                 String text;
 
                 if (finalSum < 13) {
-                    title = "Ответьте на все вопросы";
-                    text = "Нажмите ОК чтобы продолжить";
+                    title = "Answer all questions";
+                    text = "Click OK to continue.";
                 } else {
-                    title = "Результат теста";
+                    title = "Test result";
                     if (finalSum < 26) {
-                        text = "Вы находитесь в нормальном состоянии";
+                        text = "You are in good condition";
                     } else if (finalSum < 32) {
-                        text = "У Вас легкая депрессия";
+                        text = "You have mild depression";
                     }  else if (finalSum < 41) {
-                        text = "У Вас умеренная депрессия";
+                        text = "You have moderate depression";
                     } else if (finalSum > 41) {
-                        text = "У Вас тяжелая депрессия. Обратитесь к специалисту.";
+                        text = "You have severe depression. Contact a specialist.";
                     }
                     else {
                         text = "";
@@ -182,72 +186,86 @@ public class TestActivity extends AppCompatActivity {
 
     private void loadTest() {
         this._questions = new Question[]{
-                new Question("Как вы чувствовали себя на этой неделе и сегодня?",
-                        "Я не чувствую себя расстроенным, печальным.",
-                        "Я расстроен.",
-                        "Я все время расстроен и не могу от этого отключиться.",
-                        "Я настолько расстроен и несчастлив, что не могу это выдержать."),
-                new Question("Как вы себя чувствовали на этой неделе и сегодня?",
-                        "У меня не потерян интерес к другим людям",
-                        "Я меньше, чем бывало, интересуюсь другими людьми",
-                        "У меня потерян почти весь интерес к другим людям, и почти нет никаких чувств к ним.",
-                        "У меня потерян всякий интерес к другим людям, и они меня совершенно не заботят"),
-                new Question("Как вы себя чувствовали на этой неделе и сегодня?",
-                        "Я смотрю в будущее без особого разочарования",
-                        "Я испытываю разочарование в будущем",
-                        "Я чувствую, что мне нечего ждать впереди",
-                        "Я чувствую, что будущее безнадёжно и поворота к лучшему быть не может\""),
-                new Question("Как вы себя чувствовали на этой неделе и сегодня?",
-                        "Я принимаю решения примерно также легко, как всегда.",
-                        "Я пытаюсь отсрочить принятие решений.",
-                        "Принятие решений представляет для меня огромную трудность.",
-                        "Я больше совсем не могу принимать решения."),
-                new Question("Как вы себя чувствовали на этой неделе и сегодня?",
-                        "Я не чувствую себя неудачником.",
-                        "Я чувствую, что неудачи случались у меня чаще, чем у других людей.",
-                        "Когда оглядываюсь на свою жизнь, я вижу лишь цепь неудач.",
-                        "Я чувствую, что потерпел неудачу как личность (родитель, муж, жена)."),
-                new Question("Как вы себя чувствовали на этой неделе и сегодня?",
-                        "Я не чувствую, что выгляжу сколько-нибудь хуже, чем обычно.",
-                        "Меня беспокоит то, что выгляжу старо и непривлекательно.",
-                        "Я чувствую, что в моём внешнем виде происходят постоянные изменения, делающие меня непривлекательными.",
-                        "Я чувствую, что выгляжу гадко или отталкивающе."),
-                new Question("Как вы себя чувствовали на этой неделе и сегодня?",
-                        "Я не испытываю никакой особенной неудовлетворённости.",
-                        "Ничто не радует меня так, как раньше.",
-                        "Ничто больше не даёт мне удовлетворения.",
-                        "Меня не удовлетворяет всё."),
-                new Question("Как вы себя чувствовали на этой неделе и сегодня?",
-                        "Я могу работать примерно также хорошо, как и раньше.",
-                        "Мне нужно делать дополнительные усилия, чтобы что-то сделать.",
-                        "Я не могу выполнять никакую работу.",
-                        "Я не могу выполнять никакую работу."),
-                new Question("Как вы себя чувствовали на этой неделе и сегодня?",
-                        "Я не чувствую никакой особенной вины.",
-                        "Большую часть времени я чувствую себя скверным и ничтожным.",
-                        "У меня довольно сильное чувство вины.",
-                        "Я чувствую себя очень скверным и никчемным."),
-                new Question("Как вы себя чувствовали на этой неделе и сегодня?",
-                        "Я устаю ничуть не больше, чем обычно.",
-                        "Я устаю быстрее, чем раньше.",
-                        "Я устаю от любого занятия.",
-                        "Я устал чем бы то ни было заниматься."),
-                new Question("Как вы себя чувствовали на этой неделе и сегодня?",
-                        "Я не испытываю разочарования в себе.",
-                        "Я разочарован в себе.",
-                        "У меня отвращение к себе.",
-                        "Я ненавижу себя."),
-                new Question("Как вы себя чувствовали на этой неделе и сегодня?",
-                        "Мой аппетит не хуже, чем обычно.",
-                        "Мой аппетит не так хорош, как бывало",
-                        "Мой аппетит теперь гораздо хуже.",
-                        "У меня совсем нет аппетита."),
-                new Question("Как вы себя чувствовали на этой неделе и сегодня?",
-                        "У меня нет никаких мыслей о самоповреждении.",
-                        "Я чувствую, что мне было бы лучше умереть.",
-                        "У меня есть определённые планы совершения самоубийства.",
-                        "Я покончу с собой при первой возможности."),
+                new Question ("How did you feel this week and today?",
+                        "I don’t feel upset, sad.",
+                        "I'm sad.",
+                        "I’m upset all the time and I can’t disconnect from this.",
+                        "I'm so upset and unhappy that I can't stand it."),
+                new Question ("How did you feel this week and today?",
+                        "I have not lost interest in other people",
+                        "I'm less interested in other people than I used to be",
+                        "I have lost almost all my interest in other people and have almost no feelings for them.",
+                        "I have lost all interest in other people, and they do not bother me at all"),
+                new Question ("How did you feel this week and today?",
+                        "I look to the future without much frustration",
+                        "I am disappointed in the future",
+                        "I feel like I have nothing to wait in front of",
+                        "I feel that the future is hopeless and there can be no turning for the better \" "),
+                new Question ("How did you feel this week and today?",
+                        "I make decisions about as easily as ever.",
+                        "I'm trying to delay decision making.",
+                        "Making decisions is a huge challenge for me.",
+                        "I can’t make decisions anymore."),
+                new Question ("How did you feel this week and today?",
+                        "I don't feel like a failure.",
+                        "I feel that failures happened to me more often than other people.",
+                        "When I look back at my life, I see only a chain of failures.",
+                        "I feel that I have failed as a person (parent, husband, wife)."),
+                new Question ("How did you feel this week and today?",
+                        "I don’t feel like I look any worse than usual.",
+                        "It bothers me that I look old and unattractive.",
+                        "I feel that there are constant changes in my appearance that make me unattractive.",
+                        "I feel like I look nasty or repulsive."),
+                new Question ("How did you feel this week and today?",
+                        "I do not feel any particular dissatisfaction.",
+                        "Nothing pleases me like before.",
+                        "Nothing gives me satisfaction anymore.",
+                        "I am not satisfied with everything."),
+                new Question ("How did you feel this week and today?",
+                        "I can work just about as well as before.",
+                        "I need to make extra efforts to do something.",
+                        "I can do no work.",
+                        "I can not do any work."),
+                new Question ("How did you feel this week and today?",
+                        "I feel no particular guilt.",
+                        "Most of the time I feel nasty and worthless.",
+                        "I have a pretty strong sense of guilt.",
+                        "I feel very nasty and worthless."),
+                new Question ("How did you feel this week and today?",
+                        "I get tired no more than usual.",
+                        "I get tired faster than before.",
+                        "I get tired of any activity.",
+                        "I'm tired of doing whatever."),
+                new Question ("How did you feel this week and today?",
+                        "I am not disappointed in myself.",
+                        "I'm disappointed in myself.",
+                        "I have an aversion to myself.",
+                        "I hate myself."),
+                new Question ("How did you feel this week and today?",
+                        "My appetite is no worse than usual.",
+                        "My appetite is not as good as it used to be",
+                        "My appetite is now much worse.",
+                        "I have no appetite at all."),
+                new Question ("How did you feel this week and today?",
+                        "I have no thoughts about self-harm.",
+                        "I feel that I would be better off dying.",
+                        "I have certain plans for committing suicide.",
+                        "I will kill myself as soon as possible."),
         };
+    }
+
+    private void loadSettings() {
+        settings = this.getSharedPreferences(APP_PREFERENCES_THEME, Context.MODE_PRIVATE);
+    }
+
+    private void loadTheme() {
+        int theme = getThemeFromPreferences();
+        setTheme(theme);
+    }
+
+    private int getThemeFromPreferences() {
+        Boolean darkTheme = settings.getBoolean(IS_DARK_THEME, false);
+        return darkTheme ? R.style.DarkTheme : R.style.LightTheme;
     }
 
     private class Question {
@@ -264,19 +282,5 @@ public class TestActivity extends AppCompatActivity {
             this.Answer3 = answer3;
             this.Answer4 = answer4;
         }
-    }
-
-    private void loadSettings() {
-        settings = this.getSharedPreferences(APP_PREFERENCES_THEME, Context.MODE_PRIVATE);
-    }
-
-    private void loadTheme() {
-        int theme = getThemeFromPreferences();
-        setTheme(theme);
-    }
-
-    private int getThemeFromPreferences() {
-        Boolean darkTheme = settings.getBoolean(IS_DARK_THEME, false);
-        return darkTheme ? R.style.DarkTheme : R.style.LightTheme;
     }
 }

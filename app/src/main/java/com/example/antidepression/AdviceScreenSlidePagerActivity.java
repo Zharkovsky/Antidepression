@@ -3,6 +3,8 @@ package com.example.antidepression;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Switch;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
@@ -17,14 +19,14 @@ public class AdviceScreenSlidePagerActivity extends FragmentActivity {
     private SharedPreferences settings;
 
     String[] advices = new String[] {
-            "Заведите личный дневник (описывайте в нем события, сопутствующие мысли и чувства",
-            "Ежедневно составляйте план на день с конкретными и реалистичными целями",
-            "Включите в распорядок дня мероприятия, приносящие положительные эмоции (встречи с друзьями, хобби и т.п.)",
-            "Уделите время физическим нагрузкам",
-            "Найдите момент для творчества, созидания",
-            "Фокусируйтесь на позитивных моментах дня (в абсолютно любой ситуации есть свои плюсы, находите их)",
-            "Каждый вечер пишите 10 благодарностей за прошедший день (людям, Богу, событиям)",
-            "Помните, что для достижения результата нужно время, будте терпеливы",
+            "Keep a personal diary (write down events, related thoughts and feelings in it)",
+            "Make a daily plan for the day with specific and realistic goals.",
+            "Include positive emotions in your daily routine (meeting friends, hobbies, etc.)",
+            "Take time to exercise",
+            "Find a moment for creativity, creation",
+            "Focus on the positive aspects of the day (in absolutely any situation there are advantages, find them)",
+            "Every evening write 10 thanks for the past day (people, God, events)",
+            "Remember that it takes time to achieve the result, be patient",
     };
 
     /**
@@ -60,14 +62,14 @@ public class AdviceScreenSlidePagerActivity extends FragmentActivity {
 
     @Override
     public void onBackPressed() {
-        // if (mPager.getCurrentItem() == 0) {
-        //     // If the user is currently looking at the first step, allow the system to handle the
-        //     // Back button. This calls finish() on this activity and pops the back stack.
+        if (mPager.getCurrentItem() == 0) {
+            // If the user is currently looking at the first step, allow the system to handle the
+            // Back button. This calls finish() on this activity and pops the back stack.
             super.onBackPressed();
-        // } else {
-        //     // Otherwise, select the previous step.
-        //     mPager.setCurrentItem(mPager.getCurrentItem() - 1);
-        // }
+        } else {
+            // Otherwise, select the previous step.
+            mPager.setCurrentItem(mPager.getCurrentItem() - 1);
+        }
     }
 
     /**
@@ -90,6 +92,17 @@ public class AdviceScreenSlidePagerActivity extends FragmentActivity {
         }
     }
 
+    public void switchTheme(View view) {
+        boolean isChecked = ((Switch)findViewById(R.id.switchTheme)).isChecked();
+
+        SharedPreferences.Editor editor = settings.edit();
+        editor.putBoolean(IS_DARK_THEME, isChecked);
+        editor.apply();
+        editor.commit();
+
+        reloadTheme();
+    }
+
     private void loadSettings() {
         settings = this.getSharedPreferences(APP_PREFERENCES_THEME, Context.MODE_PRIVATE);
     }
@@ -97,6 +110,12 @@ public class AdviceScreenSlidePagerActivity extends FragmentActivity {
     private void loadTheme() {
         int theme = getThemeFromPreferences();
         setTheme(theme);
+    }
+
+    private void reloadTheme() {
+        int theme = getThemeFromPreferences();
+        setTheme(theme);
+        AdviceScreenSlidePagerActivity.this.recreate();
     }
 
     private int getThemeFromPreferences() {

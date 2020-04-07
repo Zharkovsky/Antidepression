@@ -20,9 +20,9 @@ public class NotesActivity extends AppCompatActivity {
     public static final String APP_PREFERENCES_THEME = "theme";
     public static final String IS_DARK_THEME = "isDarkTheme";
     private SharedPreferences settings;
+
     private ListView noteList;
     ArrayAdapter<Note> arrayAdapter;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,7 +60,6 @@ public class NotesActivity extends AppCompatActivity {
         noteList.setAdapter(arrayAdapter);
         adapter.close();
     }
-
     // по нажатию на кнопку запускаем NoteActivity для добавления данных
     public void add(View view){
         Intent intent = new Intent(this, NoteActivity.class);
