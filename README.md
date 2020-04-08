@@ -19,7 +19,7 @@ Self-help Depression Mobile App
 
 [![Thought catalog](https://i.ibb.co/mRYgHyG/New-Project-1.jpg)](http://www.youtube.com/watch?v=3d_j5WJABSg "Thought catalog")
 
-## Music relaxation ([YouTube](http://www.youtube.com/watch?v=fa_g8pRX))
+## Music relaxation ([YouTube](http://www.youtube.com/watch?v=fa_g8pRX-4k))
 
 [![Music relaxation](http://img.youtube.com/vi/fa_g8pRX-4k/maxresdefault.jpg)](http://www.youtube.com/watch?v=fa_g8pRX-4k "Music relaxation")
 
